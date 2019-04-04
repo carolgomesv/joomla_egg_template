@@ -1,0 +1,81 @@
+// Plano de capacitação - trilhas
+
+/*#plano{
+	
+	tbody{
+		tr:not(.header) {
+  			display: none;
+		}
+		.header td:before {
+  			content: "\002b";
+		  	position: relative;
+		  	top: 1px;
+		  	display: inline-block;
+		  	font-family: 'Glyphicons Halflings';
+		  	font-style: normal;
+		  	font-weight: 400;
+		  	line-height: 1;
+		  	-webkit-font-smoothing: antialiased;
+		  	-moz-osx-font-smoothing: grayscale;
+		  	float: right;
+		  	color: #999;
+		  	text-align: center;
+		  	padding: 3px;
+		  	transition: transform .25s linear;
+		  	-webkit-transition: -webkit-transform .25s linear;
+		}
+		.header.active td:before {
+  			content: "\2212";
+		}
+	}
+}*/
+#plano{
+	td[aria-expanded="true"] .fas:before{
+		content: "\f056";
+		color:#7F8C8D;
+	}
+	td[aria-expanded="false"] .fas:before{
+		content: "\f055";
+		color:#7F8C8D;	
+	}
+	.fa-check-circle{
+		color:#1E8449;
+	}
+	.fa-exclamation-triangle{
+		color: #F39C12;
+	}
+	.fa-window-close{
+		color: #B03A2E;
+	}
+
+}
+
+.linha1{
+	background:#85C1E9;
+}
+.linha2{
+	background:#D98880;
+}
+.linha3{
+	background:#B7950B;
+}
+.linha4{
+	background:$primary;
+}
+.linha5{
+	background:$secondary;
+}
+.linha6{
+	background:#82E0AA;
+}
+
+#linhas{
+	a[aria-expanded="true"] .fas:before{
+		content: "\f056";
+		color:#7F8C8D;
+	}
+	a[aria-expanded="false"] .fas:before{
+		content: "\f055";
+		color:#7F8C8D;	
+	}
+}
