@@ -16,6 +16,9 @@ $show_buttons = $this->params->get( 'coursecategory_show_buttons' );
 $unicodeslugs = JFactory::getConfig()->get('unicodeslugs');
 
 $user = JFactory::getUser();
+
+include(dirname(__FILE__)."/../helper.php");
+
 ?>
 <div class="joomdle-coursecategory<?php echo $this->pageclass_sfx;?>">
   <h2>
@@ -111,69 +114,9 @@ $user = JFactory::getUser();
                           
                         </div>
                       </div>
-                    <?php endif; ?>
-                    <?php 
+                    <?php endif; 
+                      enrol_btn($curso); ?>
                     
-                    $is_enroled = $curso['enroled'];
-                    $url = JUri::base().'moodle/course/view.php?id='.$curso['remoteid'];
-                    #$url = JoomdleHelperContent::get_course_url ($course_info['remoteid']);
-                     if ((!$user->guest) && ($is_enroled)): ?>
-
-                       <a class="btn btn-primary btn-lg btn-block" href="<?php echo $url ?>" target="_blank">Acessar</a>
-                       <!-- nova janela window.open('<?php echo $url ?>') -->
-                       <!-- mesma janela window.location.href='<?php echo $url ?>' -->
-
-
-                       <?php 
-                       elseif($curso['in_enrol_date']): 
-                        $link_modal="#login-modal";
-
-                        if (!$user->guest): 
-
-                          $link_modal= "#modal_".$curso['remoteid'];
-                          ?>
-                        <!-- Modal -->
-                        <div class="modal fade" id="modal_<?php echo $curso['remoteid']?>" tabindex="-1" role="dialog" aria-hidden="true">
-                          <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title"><?php echo $curso['fullname'] ?></h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              <div class="modal-body">
-                                <div class="float-right">
-                                  <?php echo JoomdleHelperSystem::actionbutton ( $curso, $this->params->get( 'free_courses_button' ), '', "Confirmar Inscrição") ?>
-                                </div>
-
-                                <?php echo JoomdleHelperSystem::fix_text_format($curso['summary']); ?>
-                              </div>
-
-                            </div>
-                          </div>
-                        </div>
-
-                        <?php endif;?>
-
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="<?php echo $link_modal?>">
-                          Inscrever-se e Acessar
-                        </button>
-
-                        <?php else: ?>
-                          <?php
-                          $start=(int)$curso['startdate'];
-                          $hoje=new DateTime();
-                          $texto="Inscrições em breve";
-                          if ($curso['startdate']!=NULL && $hoje->getTimestamp()>$start && !$curso['in_enrol_date']){
-                            $texto="Inscrições encerradas";
-                          }
-
-                          ?>
-                          <button type="button" class="btn btn-lg btn-block btn-dark" disabled><?php echo $texto; ?></button>
-
-                        <?php endif; ?>
 
                     </div>
                   </div>
