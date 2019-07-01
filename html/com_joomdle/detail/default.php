@@ -46,7 +46,7 @@ if (!array_key_exists ('cost',$course_info))
             </div>
 
           <?php }
-           enrol_btn($course_info);   ?>
+           enrol_btn($course_info, status($course_info));   ?>
         </div>
       </div>
     </div>

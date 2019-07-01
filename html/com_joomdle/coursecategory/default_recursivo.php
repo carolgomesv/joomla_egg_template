@@ -9,66 +9,96 @@ defined('_JEXEC') or die('Restricted access');
 $user = JFactory::getUser();
 $username = $user->username; ?>
 
-<div class="filtros">
+ <?php
+  if ($user->guest): ?>
+    <div class="alert alert-light" role="alert">
+      Acesse sua conta ou registre-se para acessar os cursos
+      <a class="btn btn-outline-primary" data-toggle="modal" data-target="#login-modal" >Login</a> OU 
+      <a href="<?php echo JRoute::_('index.php?option=com_users&view=registration'); ?>" class="btn btn-outline-info">Registre-se</a>
+
+    </div>
+
+  <?php endif;    ?>
+
+<b>Filtre por:</b> <br/>
+<div class="filtros mb-4">
   <?php  if (is_array ($this->categories)){ ?>
-  <div class="btn-group" role="group" data-filter-group="categoria">
-    <button class="btn btn-secondary active" data-filter="">Qualquer categoria</button>
-    <?php foreach ($this->categories as  $cat){
-      $this->cursos = array_merge($this->cursos, JoomdleHelperContent::getCourseCategory($cat['id'], $username));
-      ?>
-    <button class="btn btn-secondary" data-filter=".cat<?php echo $cat['id'];?>"><?php echo $cat['name'];?></button>
-    <?php } ?>
-  </div>
+    Categoria
+    <div class="btn-group btn-group-sm m-2" role="group" data-filter-group="categoria">
+      <button class="btn btn-primary active" data-filter="">Todas as categorias</button>
+      <?php foreach ($this->categories as  $cat){
+        $this->cursos = array_merge($this->cursos, JoomdleHelperContent::getCourseCategory($cat['id'], $username));
+        ?>
+        <button class="btn btn-primary" data-filter=".cat<?php echo $cat['id'];?>"><?php echo $cat['name'];?></button>
+      <?php } ?>
+    </div>
 
-<?php } ?>
-
-  <div class="btn-group" role="group" data-filter-group="status">
-    <button class="btn btn-secondary active" data-filter="">Qualquer Status</button>
-    <button class="btn btn-secondary" data-filter=".aberto">Aberto</button>
+  <?php } ?>
+  <br/>
+  Inscrições
+  <div class="btn-group btn-group-sm m-2" role="group" data-filter-group="status">
+    <button class="btn btn-secondary active" data-filter="">Todas</button>
+    <button class="btn btn-secondary" data-filter=".aberto">Abertas</button>
     <button class="btn btn-secondary"  data-filter=".breve">Em breve</button>
-    <button class="btn btn-secondary"  data-filter=".encerrado">Encerrado</button>
+    <button class="btn btn-secondary"  data-filter=".encerrado">Encerradas</button>
   </div>
 </div>
 
 
 <?php
-  //var_dump($this->cursos);
-  //if (is_array ($this->cursos) && count($this->cursos)>0): ?>
-    <div class="grid row">
 
-    </div>
+if (is_array ($this->cursos) && count($this->cursos)>0): ?>
+  <div class="grid row">
+    <?php foreach ($this->cursos as  $curso): 
+      $status=status($curso); ?>
+      <div class="grid-item col-sm-12 col-md-6 cat<?php echo $curso['cat_id'];?> <?php echo $status;?>">
+        <div class="card mb-4">
+          <?php if (!empty($curso['summary_files'][0]['url'])){ ?>
+            <div class="card-img">
+              <img src="<?php echo $curso['summary_files'][0]['url']; ?>" class="img-responsive">
+            </div>
+          <?php } ?>
+          <div class="card-header nome_curso">
+            <b><?php echo $curso['fullname'] ?></b>
+          </div>
+          <div class="categorias mx-3 mb-1">
+            <span class="badge badge-info"><?php echo $this->cat_name; ?></span> <span class="badge badge-info cat_curso"><?php echo $curso['cat_name']; ?></span>
+          </div>
+          <div class="mx-3 mb-3">
+            <?php enrol_btn2($curso, status($curso)); ?>
+            <?php if ($curso['summary']) : ?>
+                <a class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modal_<?php echo $curso['remoteid'];?>"> Veja a Ementa </a>
+            <?php endif; ?>
+          </div>
+          
+        </div>
+      </div>
 
+    <?php endforeach ?>
 
-<div class="grid row">
-  <div class="grid-item col-sm-12 col-md-6 cat1 aberto">
-    <div class="card mb-2">
-      .mt.
-    </div>
   </div>
-  <div class="grid-item col-sm-12 col-md-6 cat2 breve">
-    <div class="card mb-2">
-      .m.
-    </div>
-  </div>
-  <div class="grid-item col-sm-12 col-md-6 cat2 encerrado">
-    <div class="card">
-      .t.
-    </div>
-  </div>
-
-</div>
-
+<?php endif; ?>
 
 
 
 <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 <script>
-(function ($) {
-  var $grid = $('.grid').isotope({
-    // options
-    itemSelector: '.grid-item',
-    layoutMode: 'fitRows'
+  (function ($) {
+
+  var $grid = $('.grid').imagesLoaded( function() {
+    // init Isotope after all images have loaded
+    $grid.isotope({
+      // options
+      itemSelector: '.grid-item',
+      layoutMode: 'fitRows',
+      getSortData: {
+        nome: '.nome_curso',
+        categoria: '.cat_curso'
+      }
+    });
   });
+
 
   // filter functions
   var filters = {};

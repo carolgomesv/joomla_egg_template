@@ -28,7 +28,9 @@ include(dirname(__FILE__)."/../helper.php");
   <?php if ($this->pageclass_sfx=="recursivo"){
     echo $this->loadTemplate('recursivo');
 
-    }?>
+    }
+
+    else{ ?>
 
 
   <?php
@@ -40,8 +42,7 @@ include(dirname(__FILE__)."/../helper.php");
 
     </div>
 
-  <?php endif;   
-  ?>
+  <?php endif;    ?>
 
 
   <div class="joomdle_categories">
@@ -119,7 +120,7 @@ include(dirname(__FILE__)."/../helper.php");
                         </div>
                       </div>
                     <?php endif; 
-                      enrol_btn($curso); ?>
+                      enrol_btn($curso, status($curso)); ?>
                     
 
                     </div>
@@ -145,3 +146,5 @@ include(dirname(__FILE__)."/../helper.php");
       <?php endif ?>
 
     </div>
+
+    <?php } ?>
