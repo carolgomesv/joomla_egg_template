@@ -14,11 +14,11 @@ function course_modal($curso){
           </button>
         </div>
         <div class="modal-body">
-
-          <div class="inscrever-btn mr-3">
-            <?php echo JoomdleHelperSystem::actionbutton ( $curso, 'enrol', '', "Confirmar Inscrição") ?>
-          </div>
-
+          <?php if ((!$user->guest) && (!$curso['enroled'])){ ?>
+            <div class="inscrever-btn mr-3">
+              <?php echo JoomdleHelperSystem::actionbutton ( $curso, 'enrol', '', "Confirmar Inscrição") ?>
+            </div>
+          <?php } ?>
           <?php echo JoomdleHelperSystem::fix_text_format($curso['summary']); ?>
         </div>
 
@@ -27,7 +27,6 @@ function course_modal($curso){
   </div>
 
 <?php }
-
 function status($curso){
   if ($curso['in_enrol_date']){
     return "aberto";
@@ -51,51 +50,13 @@ function status($curso){
   return "encerrado";
 }
 
-function enrol_btn($curso,$status){
-  $url = JUri::base().'moodle/course/view.php?id='.$curso['remoteid'];
-  if ((!$user->guest) && ($curso['enroled'])){
-    //aluno está inscrito no curso
-    ?>
-    <a class="btn btn-primary btn-lg btn-block" href="<?php echo $url ?>" target="_blank">Acessar</a>
-  <?php }
-
-  if ($status=="aberto") {
-    // inscrições abertas
-    // como bloquear inscrições de outros municípios?
-    // bloquear inscrições de quem não finalizou outros cursos?
-    $link_modal="#login-modal";
-
-    if (!$user->guest){
-      $link_modal= "#modal_".$curso['remoteid'];
-      
-    } 
-    course_modal($curso); ?>
-
-    <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="<?php echo $link_modal?>">
-      Inscrever-se e Acessar
-    </button>
-  <?php  }
-  else{
-    if ($status=="breve"){
-      $texto="Inscrições em breve";
-    }
-    if ($status=="encerrado"){
-      $texto="Inscrições encerradas";
-    }
-
-    ?>
-
-    <button type="button" class="btn btn-lg btn-block btn-dark" disabled><?php echo $texto; ?></button>
-  <?php  }
-}
-
-function enrol_btn2($curso,$status){
+function enrol_btn($curso,$status,$btn_class=''){
   $url = JUri::base().'moodle/course/view.php?id='.$curso['remoteid'];
   course_modal($curso);
   if ((!$user->guest) && ($curso['enroled'])){
     //aluno está inscrito no curso
     ?>
-    <a class="btn btn-primary btn-block btn-lg " href="<?php echo $url ?>" target="_blank">Acessar</a>
+    <a class="btn btn-primary btn-lg <?php echo $btn_class;?>" href="<?php echo $url ?>" target="_blank">Acessar</a>
   <?php }
 
   if ($status=="aberto") {
@@ -109,7 +70,7 @@ function enrol_btn2($curso,$status){
       
     } ?>
 
-    <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="<?php echo $link_modal?>">
+    <button type="button" class="btn btn-secondary btn-lg <?php echo $btn_class;?>" data-toggle="modal" data-target="<?php echo $link_modal?>">
       Inscrever-se e Acessar
     </button>
   <?php  }
@@ -123,7 +84,18 @@ function enrol_btn2($curso,$status){
 
     ?>
 
-    <button type="button" class="btn btn-lg btn-dark" disabled><?php echo $texto; ?></button>
+    <button type="button" class="btn btn-lg btn-dark <?php echo $btn_class;?>" disabled><?php echo $texto; ?></button>
   <?php  }
 }
+
+
+function get_parent_category($curso_id){
+  $db = JFactory::getDbo();
+  $sql = "select id, name  from mdl_course_categories where id in (select parent from mdl_course_categories where id = ".$curso_id." )";
+  $db->setQuery($sql);  
+  return $db->loadAssoc();
+}
+
 ?>
+
+

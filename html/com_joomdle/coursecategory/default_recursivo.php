@@ -9,17 +9,6 @@ defined('_JEXEC') or die('Restricted access');
 $user = JFactory::getUser();
 $username = $user->username; ?>
 
- <?php
-  if ($user->guest): ?>
-    <div class="alert alert-light" role="alert">
-      Acesse sua conta ou registre-se para acessar os cursos
-      <a class="btn btn-outline-primary" data-toggle="modal" data-target="#login-modal" >Login</a> OU 
-      <a href="<?php echo JRoute::_('index.php?option=com_users&view=registration'); ?>" class="btn btn-outline-info">Registre-se</a>
-
-    </div>
-
-  <?php endif;    ?>
-
 <b>Filtre por:</b> <br/>
 <div class="filtros mb-4">
   <?php  if (is_array ($this->categories)){ ?>
@@ -44,43 +33,6 @@ $username = $user->username; ?>
   </div>
 </div>
 
-
-<?php
-
-if (is_array ($this->cursos) && count($this->cursos)>0): ?>
-  <div class="grid row">
-    <?php foreach ($this->cursos as  $curso): 
-      $status=status($curso); ?>
-      <div class="grid-item col-sm-12 col-md-6 cat<?php echo $curso['cat_id'];?> <?php echo $status;?>">
-        <div class="card mb-4">
-          <?php if (!empty($curso['summary_files'][0]['url'])){ ?>
-            <div class="card-img">
-              <img src="<?php echo $curso['summary_files'][0]['url']; ?>" class="img-responsive">
-            </div>
-          <?php } ?>
-          <div class="card-header nome_curso">
-            <b><?php echo $curso['fullname'] ?></b>
-          </div>
-          <div class="categorias mx-3 mb-1">
-            <span class="badge badge-info"><?php echo $this->cat_name; ?></span> <span class="badge badge-info cat_curso"><?php echo $curso['cat_name']; ?></span>
-          </div>
-          <div class="mx-3 mb-3">
-            <?php enrol_btn2($curso, status($curso)); ?>
-            <?php if ($curso['summary']) : ?>
-                <a class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modal_<?php echo $curso['remoteid'];?>"> Veja a Ementa </a>
-            <?php endif; ?>
-          </div>
-          
-        </div>
-      </div>
-
-    <?php endforeach ?>
-
-  </div>
-<?php endif; ?>
-
-
-
 <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 <script>
@@ -92,13 +44,13 @@ if (is_array ($this->cursos) && count($this->cursos)>0): ?>
       // options
       itemSelector: '.grid-item',
       layoutMode: 'fitRows',
+      sortBy: 'random',
       getSortData: {
         nome: '.nome_curso',
         categoria: '.cat_curso'
       }
     });
   });
-
 
   // filter functions
   var filters = {};
