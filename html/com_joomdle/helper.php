@@ -1,4 +1,13 @@
 <?php 
+/*
+implementar listar cursos das subcategorias
+ $user = JFactory::getUser();
+        $username = $user->username;
+        $this->cursos = JoomdleHelperContent::getCourseCategory ($id, $username);
+
+*/
+
+
 function course_modal($curso){
   ?>
   <!-- Modal -->

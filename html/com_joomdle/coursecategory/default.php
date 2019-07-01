@@ -20,10 +20,15 @@ $user = JFactory::getUser();
 include(dirname(__FILE__)."/../helper.php");
 
 ?>
-<div class="joomdle-coursecategory<?php echo $this->pageclass_sfx;?>">
+<div class="joomdle-coursecategory <?php echo $this->pageclass_sfx;?>">
   <h2>
     <?php echo $this->cat_name; ?>
   </h2>
+
+  <?php if ($this->pageclass_sfx=="recursivo"){
+    echo $this->loadTemplate('recursivo');
+
+    }?>
 
 
   <?php
@@ -82,8 +87,7 @@ include(dirname(__FILE__)."/../helper.php");
       <?php
       if (is_array ($this->cursos) && count($this->cursos)>0): ?>
 
-
-        <div class="row">
+       <div class="row">
 
           <?php $arrays = array_chunk($this->cursos, ceil(count($this->cursos) / 2));
 
@@ -126,6 +130,7 @@ include(dirname(__FILE__)."/../helper.php");
             <?php endforeach;?>
           </div>
         <?php endif; ?>
+
 
       </div>
       <?php
