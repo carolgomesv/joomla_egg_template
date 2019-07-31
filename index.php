@@ -114,6 +114,7 @@ $template->_loadFontAwesome();
 $template->body();
 $template->addScript('script.js');
 $template->addScript('custom.js');
+$template->addScript('jquery.mask.min.js');
 $template->loadJS();
 $template->loadCSSFile();
 ?>
