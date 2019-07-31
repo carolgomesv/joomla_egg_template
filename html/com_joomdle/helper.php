@@ -1,6 +1,5 @@
 <?php 
 
-
 function course_modal($curso){
   ?>
   <!-- Modal -->
@@ -26,7 +25,8 @@ function course_modal($curso){
     </div>
   </div>
 
-<?php }
+<?php
+ }
 function status($curso){
   if ($curso['in_enrol_date']){
     return "aberto";
@@ -51,6 +51,7 @@ function status($curso){
 }
 
 function enrol_btn($curso,$status,$btn_class=''){
+  $user = JFactory::getUser();
   $url = JUri::base().'moodle/course/view.php?id='.$curso['remoteid'];
   course_modal($curso);
   if ((!$user->guest) && ($curso['enroled'])){
