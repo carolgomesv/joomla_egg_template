@@ -2,8 +2,8 @@
 /**
  * @package   Astroid Framework
  * @author    JoomDev https://www.joomdev.com
- * @copyright Copyright (C) 2009 - 2018 JoomDev.
- * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
+ * @copyright Copyright (C) 2009 - 2019 JoomDev.
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
  */
 defined('_JEXEC') or die;
 /*
@@ -106,12 +106,12 @@ function modChrome_split_title($module, &$params, &$attribs) {
    $headerClass = htmlspecialchars($params->get('header_class', 'page-header'), ENT_COMPAT, 'UTF-8');
 
    if ($module->content) {
-      echo '<' . $moduleTag . ' class="split-title-module' . htmlspecialchars($params->get('moduleclass_sfx'), ENT_COMPAT, 'UTF-8') . $moduleClass . '">';
+      echo '<' . $moduleTag . ' class="moduletable split-title-module' . htmlspecialchars($params->get('moduleclass_sfx'), ENT_COMPAT, 'UTF-8') . $moduleClass . '">';
 
       if ($module->showtitle) {
          $title = explode('|', $module->title);
          $html = '';
-         $html .= '<' . $headerTag . ' class="split-title ' . $headerClass . '">';
+         $html .= '<' . $headerTag . ' class="module-title split-title ' . $headerClass . '">';
          $index = 1;
          foreach ($title as $title_text) {
             $html .= '<span class="split-' . $index . '">' . $title_text . '</span>';

@@ -14,17 +14,25 @@
 
          _this.find('li').each(function () {
             // Get Text For Sub Menu Back Button
-            var sub_menu_lable = $(this).children('a').html();
+			if ($(this).children('a').length) {
+				var sub_menu_lable = $(this).children('a').html();
+			}else{
+				var sub_menu_lable = $(this).children('span').html();
+			}
             if ($(this).hasClass('subMenu-wrapper')) {
 
                var _indicator = $('<span class="menu-indicator"><i class="fas fa-angle-right"></i></span>');
-               var _indicatorBackItem = $('<li class="menu-item"></li>');
-               var _indicatorBack = $('<span class="menu-indicator-back text-center"><i class="fas fa-angle-left"></i></span>');
+               var _indicatorBackItem = $('<li class="menu-item menu-go-back"></li>');
+               var _indicatorBack = $('<span class="menu-indicator-back"><i class="fas fa-angle-left"></i></span>');
                _indicatorBack.append(sub_menu_lable);
                _indicatorBackItem.append(_indicatorBack);
 
                // Add Button For Toggle Sub Menu
-               $(this).children('a').after(_indicator);
+               if ($(this).children('a').length) {
+                  $(this).children('a').after(_indicator);
+               }else{
+                  $(this).children('span').after(_indicator);
+               }
                // For Sub menu Open
                _indicator.bind('click', function () {
                   $(this).next('.dropdown-menus').toggleClass('menu_open');

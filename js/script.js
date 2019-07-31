@@ -14,6 +14,15 @@
       $('.astroid-mobile-menu').astroidMobileMenu();
       $('#astroid-offcanvas').find('ul.menu').astroidMobileMenu();
       $('.astroid-mobile-menu').removeClass('d-none');
+      $('.astroid-sidebar-menu .nav-item-caret').click(function () {
+         $(this).parent('li').siblings('li').children('ul').slideUp();
+         $(this).parent('li').siblings('li').children('.nav-item-caret').removeClass('open');
+         $(this).toggleClass('open');
+         $(this).siblings('ul').slideToggle();
+      });
+      $('.astroid-sidebar-collapsable').click(function () {
+         $('#astroid-header').toggleClass('expanded');
+      });
    };
    var initDisplay = function () {
       setTimeout(function () {
@@ -108,8 +117,7 @@
             var _delay = $(this).data('animation-delay');
             if (_animation != '' && elementInViewport($(this)) && !$(this).hasClass('animation-done')) {
                if (_delay != '' && _delay != 0 && _delay != '0') {
-                  _delay = parseFloat(_delay);
-                  _delay = _delay * 1000;
+                  _delay = parseInt(_delay);
                } else {
                   _delay = 0;
                }
@@ -187,7 +195,6 @@
       initHeader();
       initTooltip();
       deviceBreakpoint(false);
-      $('[data-jddrop]').JDDrop();
    };
 
    var winLoad = function () {
@@ -243,6 +250,5 @@
             }
          });
       }
-      
    });
 })(jQuery);

@@ -2,15 +2,17 @@
 <!DOCTYPE install PUBLIC "-//Joomla! 2.5//DTD template 1.0//EN" "https://www.joomla.org/xml/dtd/1.6/template-install.dtd">
 <extension version="3.1" type="template" client="site" method="upgrade">
    <name>astroid_egg_template</name>
-   <creationDate>Nov 2018</creationDate>
+   <creationDate>July 2019</creationDate>
    <author>JoomDev</author>
    <authorEmail>info@joomdev.com</authorEmail>
    <authorUrl>https://www.joomdev.com</authorUrl>
-   <copyright>Copyright (C) 2018 Joomdev, Inc. All rights reserved.</copyright>
+   <copyright>Copyright (C) 2019 Joomdev, Inc. All rights reserved.</copyright>
    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-   <version>2.0.2</version>
+   <version>2.2.3</version>
    <description>TPL_ASTROID_XML_DESCRIPTION</description>
-
+   <updateservers>
+      <server type="extension" name="astroid_framework" priority="1">https://cdn.joomdev.com/updates/astroid_egg_template.xml</server>
+   </updateservers>
 
    <files>
       <folder>css</folder>
@@ -33,7 +35,6 @@
       <position>topbar-2</position>
       <position>header</position>
       <position>hero-section</position>
-      <position>Slider</position>
       <position>language-switcher</position>
       <position>astroid-top-contact</position>
       <position>astroid-top-social</position>
@@ -71,10 +72,6 @@
    <languages folder="language/en-GB">
       <language tag="en-GB">en-GB.tpl_astroid_egg_template.ini</language>
       <language tag="en-GB">en-GB.tpl_astroid_egg_template.sys.ini</language>
-   </languages>
-   <languages folder="language/pt-BR">
-      <language tag="pt-BR">pt-BR.tpl_astroid_egg_template.ini</language>
-      <language tag="pt-BR">pt-BR.tpl_astroid_egg_template.sys.ini</language>
    </languages>
    <config>
       <fields name="params">

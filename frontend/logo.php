@@ -2,8 +2,11 @@
 /**
  * @package   Astroid Framework
  * @author    JoomDev https://www.joomdev.com
- * @copyright Copyright (C) 2009 - 2018 JoomDev.
- * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
+ * @copyright Copyright (C) 2009 - 2019 JoomDev.
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
+ * 	DO NOT MODIFY THIS FILE DIRECTLY AS IT WILL BE OVERWRITTEN IN THE NEXT UPDATE
+ *  You can easily override all files under /frontend/ folder.
+ *	Just copy the file to ROOT/templates/YOURTEMPLATE/html/frontend/ folder to create and override
  */
 // No direct access.
 defined('_JEXEC') or die;
@@ -52,13 +55,13 @@ $class = ['astroid-logo', 'astroid-logo-' . $logo_type, 'd-flex align-items-cent
    ?>
    <a class="<?php echo implode(' ', $class); ?><?php echo $mr; ?>" href="<?php echo JURI::root(); ?>">
       <?php if (!empty($default_logo)) { ?>
-         <img src="<?php echo JURI::root() . '/images/' . $default_logo; ?>" alt="<?php echo $sitename; ?>" class="astroid-logo-default" />
+         <img src="<?php echo JURI::root() .$template->SeletedMedia(). '/' . $default_logo; ?>" alt="<?php echo $sitename; ?>" class="astroid-logo-default" />
       <?php } ?>
       <?php if (!empty($mobile_logo)) { ?>
-         <img src="<?php echo JURI::root() . '/images/' . $mobile_logo; ?>" alt="<?php echo $sitename; ?>" class="astroid-logo-mobile" />
+         <img src="<?php echo JURI::root() .$template->SeletedMedia(). '/' . $mobile_logo; ?>" alt="<?php echo $sitename; ?>" class="astroid-logo-mobile" />
       <?php } ?>
       <?php if (!empty($stickey_header_logo)) { ?>
-         <img src="<?php echo JURI::root() . '/images/' . $stickey_header_logo; ?>" alt="<?php echo $sitename; ?>" class="astroid-logo-sticky" />
+         <img src="<?php echo JURI::root() .$template->SeletedMedia(). '/' . $stickey_header_logo; ?>" alt="<?php echo $sitename; ?>" class="astroid-logo-sticky" />
       <?php } ?>
    </a>
    <!-- image logo ends -->

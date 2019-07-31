@@ -1,16 +1,10 @@
-// Bootstrap 4.1.3 variables override
+// Bootstrap Default 4.1.3
 @import "bootstrap/functions";
 @import "egg/variables_override";
-
-// Bootstrap Default 4.1.3
 @import "bootstrap/bootstrap";
-
 
 // Astroid Framework
 @import "astroid/astroid";
 
-
 // Theme
-
-@import "egg/_bootswatch";
 @import "egg/style";

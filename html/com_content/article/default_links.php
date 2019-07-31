@@ -1,10 +1,9 @@
 <?php
 /**
- * @package     Joomla.Site
- * @subpackage  com_content
- *
- * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @package   Astroid Framework
+ * @author    JoomDev https://www.joomdev.com
+ * @copyright Copyright (C) 2009 - 2019 JoomDev.
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
  */
 
 defined('_JEXEC') or die;
@@ -17,7 +16,7 @@ $params = $this->item->params;
 if ($urls && (!empty($urls->urla) || !empty($urls->urlb) || !empty($urls->urlc))) :
 ?>
 <div class="content-links">
-	<ul class="nav nav-tabs nav-stacked">
+	<ul class="menu list-inline">
 		<?php
 			$urlarray = array(
 			array($urls->urla, $urls->urlatext, $urls->targeta, 'a'),

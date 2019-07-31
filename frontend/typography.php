@@ -1,9 +1,13 @@
 <?php
+
 /**
  * @package   Astroid Framework
  * @author    JoomDev https://www.joomdev.com
- * @copyright Copyright (C) 2009 - 2018 JoomDev.
- * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
+ * @copyright Copyright (C) 2009 - 2019 JoomDev.
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or Later
+ * 	DO NOT MODIFY THIS FILE DIRECTLY AS IT WILL BE OVERWRITTEN IN THE NEXT UPDATE
+ *  You can easily override all files under /frontend/ folder.
+ * 	Just copy the file to ROOT/templates/YOURTEMPLATE/html/frontend/ folder to create and override
  */
 // No direct access.
 defined('_JEXEC') or die;
@@ -27,6 +31,9 @@ $style = $menu_style = $submenu_style = "";
 $typography = array('body', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6');
 $style = '';
 
+
+$libraryFonts = AstroidFrameworkHelper::getUploadedFonts($template->template);
+
 // Body, H1 - H6 font styles.
 foreach ($typography as $typo) {
    $typoType = $template->params->get($typo . '_typography');
@@ -36,9 +43,14 @@ foreach ($typography as $typo) {
       $fontface = str_replace('+', ' ', explode(":", $typoParams->font_face));
       $style .= $typo . ',.' . $typo . '{';
       if (isset($fontface[0]) && !empty($fontface[0])) {
-         $style .= 'font-family: ' . $fontface[0] . ',' . $typoParams->alt_font_face . ';';
-         if (!AstroidFrameworkHelper::isSystemFont($fontface[0])) {
-            array_push($ast_fontfamily, $typoParams->font_face);
+         if (isset($libraryFonts[$fontface[0]])) {
+            $style .= 'font-family: ' . $libraryFonts[$fontface[0]]['name'] . ',' . $typoParams->alt_font_face . ';';
+            AstroidFrameworkHelper::loadLibraryFont($libraryFonts[$fontface[0]], $template);
+         } else {
+            $style .= 'font-family: ' . $fontface[0] . ',' . $typoParams->alt_font_face . ';';
+            if (!AstroidFrameworkHelper::isSystemFont($fontface[0])) {
+               array_push($ast_fontfamily, $typoParams->font_face);
+            }
          }
          //$document->addStyleSheet('https://fonts.googleapis.com/css?family='.$fontface[0]);
       }
@@ -72,11 +84,17 @@ $menuType = $template->params->get('menus_typography');
 if (trim($menuType) == 'custom') {
    $menu_font = $template->params->get('menu_typography_options');
    $menu_fontface = str_replace('+', ' ', explode(":", $menu_font->font_face));
-   $menu_style = '.astroid-nav>li>a {';
+   $menu_style = '.astroid-nav>li>a,.astroid-sidebar-menu>li>a {';
    if (isset($menu_fontface[0]) && !empty($menu_fontface[0])) {
-      $menu_style .= 'font-family: ' . $menu_fontface[0] . ', ' . $menu_font->alt_font_face . ';';
-      if (!AstroidFrameworkHelper::isSystemFont($menu_fontface[0])) {
-         array_push($ast_fontfamily, $menu_font->font_face);
+
+      if (isset($libraryFonts[$menu_fontface[0]])) {
+         $menu_style .= 'font-family: ' . $libraryFonts[$menu_fontface[0]]['name'] . ';';
+         AstroidFrameworkHelper::loadLibraryFont($libraryFonts[$menu_fontface[0]], $template);
+      } else {
+         $menu_style .= 'font-family: ' . $menu_fontface[0] . ';';
+         if (!AstroidFrameworkHelper::isSystemFont($menu_fontface[0])) {
+            array_push($ast_fontfamily, $menu_font->font_face);
+         }
       }
    }
    if (isset($menu_font->font_size) && !empty($menu_font->font_size)) {
@@ -101,6 +119,11 @@ if (trim($menuType) == 'custom') {
       $menu_style .= 'text-transform: ' . $menu_font->text_transform . ';';
    }
    $menu_style .= '}';
+   if (isset($menu_font->line_height) && !empty($menu_font->line_height)) {
+      $line_height_unit = isset($menu_font->line_height_unit) ? $menu_font->line_height_unit : 'em';
+      $menu_style .= 'line-height: ' . $menu_font->line_height . $line_height_unit . ';';
+      $menu_style .= '.astroid-sidebar-menu li > .nav-item-caret{line-height: ' . $menu_font->line_height . $line_height_unit . ' !important;}';
+   }
 }
 
 // SubMenu Font Styles
@@ -108,11 +131,16 @@ $submenuType = $template->params->get('submenus_typography');
 if (trim($submenuType) == 'custom') {
    $submenu_font = $template->params->get('submenu_typography_options');
    $submenu_fontface = str_replace('+', ' ', explode(":", $submenu_font->font_face));
-   $submenu_style = '.nav-submenu-container .nav-submenu > li {';
+   $submenu_style = '.nav-submenu-container .nav-submenu > li, .jddrop-content .megamenu-item .megamenu-menu li, .nav-submenu {';
    if (isset($submenu_fontface[0]) && !empty($submenu_fontface[0])) {
-      $submenu_style .= 'font-family: ' . $submenu_fontface[0] . ', ' . $submenu_font->alt_font_face . ';';
-      if (!AstroidFrameworkHelper::isSystemFont($submenu_fontface[0])) {
-         array_push($ast_fontfamily, $submenu_font->font_face);
+      if (isset($libraryFonts[$submenu_fontface[0]])) {
+         $submenu_style .= 'font-family: ' . $libraryFonts[$submenu_fontface[0]]['name'] . ',' . $submenu_font->alt_font_face . ';';
+         AstroidFrameworkHelper::loadLibraryFont($libraryFonts[$submenu_fontface[0]], $template);
+      } else {
+         $submenu_style .= 'font-family: ' . $submenu_fontface[0] . ', ' . $submenu_font->alt_font_face . ';';
+         if (!AstroidFrameworkHelper::isSystemFont($submenu_fontface[0])) {
+            array_push($ast_fontfamily, $submenu_font->font_face);
+         }
       }
    }
    if (isset($submenu_font->font_size) && !empty($submenu_font->font_size)) {
@@ -140,15 +168,15 @@ if (trim($submenuType) == 'custom') {
 }
 
 // Let's add combined style sheet here
-$ast_fontfamily_list = implode("|", str_replace(" ", "+", $ast_fontfamily));
+$ast_fontfamily_list = implode("|", str_replace(" ", "+", array_unique($ast_fontfamily)));
 if ($in_head) {
    $document = JFactory::getDocument();
    if (!empty($ast_fontfamily_list)) {
       $document->addStyleSheet('https://fonts.googleapis.com/css?family=' . $ast_fontfamily_list);
    }
-   $document->addStyleDeclaration($style);
-   $document->addStyleDeclaration($menu_style);
-   $document->addStyleDeclaration($submenu_style);
+   $template->addStyleDeclaration($style);
+   $template->addStyleDeclaration($menu_style);
+   $template->addStyleDeclaration($submenu_style);
 } else {
    if (!empty($ast_fontfamily_list)) {
       echo '<link href="' . 'https://fonts.googleapis.com/css?family=' . $ast_fontfamily_list . '" rel="stylesheet" type="text/css" />';
