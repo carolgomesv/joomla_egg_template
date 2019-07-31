@@ -3,7 +3,7 @@ $logo-max-width: 250px;
 $logo-max-height: 65px;
 
 // Header Section
-$header-padding-y: 15px !default;
+$header-padding-y: 0px !default;
 $header-padding-x: 0 !default;
 $header-section-zindex: $zindex-dropdown !default;
 $header-sidebar-width: 320px !default;
@@ -47,9 +47,9 @@ $comingsoon-count-font-weight: bold !default;
 $socialshare_margin: 0 10px !default;
 
 // Module
-$module-margin-y: .5rem !default;
+$module-margin-y: 0 !default;
 $module-margin-x: 0 !default;
-$module-padding-y: .5rem !default;
+$module-padding-y: 0 !default;
 $module-padding-x: 0 !default;
 
 // Selection

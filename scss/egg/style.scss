@@ -962,3 +962,258 @@ legend+.control-group {
 		right: 10px;
 	}
 }
+
+//==========footer===========
+.astroid-footer-section, .footer {
+  border-top: 10px  solid $primary;
+
+  h1{
+    font-size: 14pt;
+    color: $secondary;
+    margin-top: 10px;
+  }
+}
+
+//==========galeria===================
+.osgalery-cat-tabs, .copyright-block{
+  display:none;
+}
+
+//============ breadcrumb============
+.breadcrumb {
+  font-size: 11px;
+}
+
+//============ notícias home=============
+.category-module{
+  .card-header, .card-body{
+    padding: 0.2rem 0.8rem;
+  }
+  .card-header{
+    min-height:62px;
+  }
+}
+
+//============ header ==============
+.astroid-logo-default {
+  max-height:80px;
+}
+
+#header-modules{
+  .moduletable {
+    margin: 0;
+    padding: 0;
+    text-align: right;
+  }
+}
+
+//============== votos==============
+.votes-wrapper {
+  @include shadow();
+  background-color: $gray-200;
+  border-color: darken($gray-200, 5%);
+  @include border-radius($alert-border-radius);
+  margin-bottom: 8px;
+  padding: 10px;
+  text-align: center;
+  max-height:50px;
+
+  &.votes-up{
+    background-color: $primary;
+    border-color: darken($primary, 5%);
+    color: #fff;
+  }
+
+  &.votes-down{
+    background-color: $secondary;
+    border-color: darken($secondary, 5%);
+    color: #fff;
+  }
+  
+}
+
+.avatar img{
+  max-width:50px;
+}
+
+//=========== menu ===========
+
+
+#astroid-header{
+  .navbar{
+    padding: 0rem 1rem;
+
+    .nav-link {
+      padding: 1rem 0.5rem;
+
+      &:hover{
+        background: darken($primary, 3%);
+      }
+    }
+  }
+  .navbar-dark{
+    .nav-link {
+      color: #fff!important;
+    }
+  }
+
+  
+}
+//======= Banners ==========
+
+#sidebar-right{
+  .banneritem, .bannergroup {
+    float:right;
+  }
+}
+
+
+//==========roksearch===========
+
+
+.roksearch-wrapper,.roksearch_wrapper4 {
+  position: relative;
+}
+
+.roksearch-wrapper .fa-search{
+  color: #666;
+  top: 10px;
+  left: 5px;
+  position: absolute;
+}
+
+
+#roksearch_search_str{
+  padding-left: 25px;
+
+  &.loading {
+    background: transparent url(../images/spinner.gif) no-repeat scroll 98% 50%;
+  }
+}
+
+#roksearch_results{
+  z-index: 10000;
+  position: absolute;
+  width: 400px;
+  float: right;
+  margin-top: -1px;
+  text-align: left;
+  visibility: hidden;
+  @extend .card;
+
+
+  #roksearch_link{
+    top: 5px;
+    right: 10px;
+    position: absolute;
+    &:before{
+      content: '\f00d';
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
+    }
+  }
+  .roksearch_header{
+    padding: 0.3rem;
+    background-color: $gray-200;
+    border-bottom: 1px solid $gray-300;
+  }
+  .roksearch_row_btm {
+    padding: 0.3rem;
+  }
+  .page{
+    .roksearch_result_wrapper1{
+      padding: 0.75rem;
+      border-bottom: 1px solid $gray-300;
+
+      h3{
+        font-size:1em;
+      }
+    }
+
+    .roksearch_result_wrapper1:nth-of-type(even){
+      background-color: $gray-200;
+    }
+  }
+}
+
+// Plano de capacitação - trilhas
+
+/*#plano{
+	
+	tbody{
+		tr:not(.header) {
+  			display: none;
+		}
+		.header td:before {
+  			content: "\002b";
+		  	position: relative;
+		  	top: 1px;
+		  	display: inline-block;
+		  	font-family: 'Glyphicons Halflings';
+		  	font-style: normal;
+		  	font-weight: 400;
+		  	line-height: 1;
+		  	-webkit-font-smoothing: antialiased;
+		  	-moz-osx-font-smoothing: grayscale;
+		  	float: right;
+		  	color: #999;
+		  	text-align: center;
+		  	padding: 3px;
+		  	transition: transform .25s linear;
+		  	-webkit-transition: -webkit-transform .25s linear;
+		}
+		.header.active td:before {
+  			content: "\2212";
+		}
+	}
+}*/
+#plano{
+	td[aria-expanded="true"] .fas:before{
+		content: "\f056";
+		color:#7F8C8D;
+	}
+	td[aria-expanded="false"] .fas:before{
+		content: "\f055";
+		color:#7F8C8D;	
+	}
+	.fa-check-circle{
+		color:#1E8449;
+	}
+	.fa-exclamation-triangle{
+		color: #F39C12;
+	}
+	.fa-window-close{
+		color: #B03A2E;
+	}
+
+}
+
+.linha1{
+	background:#85C1E9;
+}
+.linha2{
+	background:#D98880;
+}
+.linha3{
+	background:#B7950B;
+}
+.linha4{
+	background:$primary;
+}
+.linha5{
+	background:$secondary;
+}
+.linha6{
+	background:#82E0AA;
+}
+
+#linhas{
+	a[aria-expanded="true"] .fas:before{
+		content: "\f056";
+		color:#7F8C8D;
+	}
+	a[aria-expanded="false"] .fas:before{
+		content: "\f055";
+		color:#7F8C8D;	
+	}
+}
