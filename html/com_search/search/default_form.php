@@ -13,6 +13,7 @@ JHtml::_('bootstrap.tooltip');
 
 $lang = JFactory::getLanguage();
 $upper_limit = $lang->getUpperLimitSearchWord();
+$state      = $this->get('state');
 
 ?>
 <form id="searchForm" action="<?php echo JRoute::_('index.php?option=com_search'); ?>" method="post">
@@ -29,49 +30,82 @@ $upper_limit = $lang->getUpperLimitSearchWord();
 		<input type="hidden" name="task" value="search" />
 		<div class="clearfix"></div>
 	</div>
-	<div class="searchintro<?php echo $this->params->get('pageclass_sfx'); ?>">
-		<?php if (!empty($this->searchword)) : ?>
-			<p>
-				<?php echo JText::plural('COM_SEARCH_SEARCH_KEYWORD_N_RESULTS', '<span class="badge badge-info">' . $this->total . '</span>'); ?>
-			</p>
-		<?php endif; ?>
-	</div>
+	
 	<?php if ($this->params->get('search_phrases', 1)) : ?>
-		<fieldset class="phrases">
-			<legend>
+		<div class="btn-group">
+			<button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMatch" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<?php echo JText::_('COM_SEARCH_FOR'); ?>
-			</legend>
-			<div class="phrases-box">
-				<?php echo $this->lists['searchphrase']; ?>
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMatch">
+				<?php 
+				$match_values= ['all'=> 'COM_SEARCH_ALL_WORDS', 'any'=> 'COM_SEARCH_ANY_WORDS', 'exact'=>'COM_SEARCH_EXACT_PHRASE'];
+				foreach ($match_values as $id => $text){
+					$check='';
+					if($state->get('match')!=null && $state->get('match')==$id){
+						$check='checked="checked"';
+					}?>
+
+					<div class="dropdown-item"> <input type="radio" name="searchphrase" id="searchphrase<?php echo $id; ?>" value="<?php echo $id; ?>" <?php echo $check; ?> ><?php echo JText::_($text); ?></div>
+				<?php }
+				?>
+
 			</div>
-			<div class="ordering-box">
-				<label for="ordering" class="ordering">
-					<?php echo JText::_('COM_SEARCH_ORDERING'); ?>
-				</label>
-				<?php echo $this->lists['ordering']; ?>
+		</div>
+		<div class="btn-group">
+			<button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownOrdering" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<?php echo JText::_('COM_SEARCH_ORDERING'); ?>
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownOrdering">
+				<?php 
+				$ordering_values= ['newest'=> 'COM_SEARCH_NEWEST_FIRST', 'oldest'=> 'COM_SEARCH_OLDEST_FIRST', 'popular'=>'COM_SEARCH_MOST_POPULAR', 'alpha'=>'COM_SEARCH_ALPHABETICAL','category'=>'JCATEGORY'];
+				foreach ($ordering_values as $id => $text){
+					$check='';
+					if($state->get('ordering')!=null && $state->get('ordering')==$id){
+						$check='checked="checked"';
+					}?>
+
+					<div class="dropdown-item"> <input type="radio" name="ordering" id="ordering<?php echo $id; ?>" value="<?php echo $id; ?>" <?php echo $check; ?> ><?php echo JText::_($text); ?></div>
+				<?php }
+				?>
+
 			</div>
-		</fieldset>
+		</div>
+
 	<?php endif; ?>
 	<?php if ($this->params->get('search_areas', 1)) : ?>
-		<fieldset class="only">
-			<legend>
+		<div class="btn-group">
+			<button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownSearchareas" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<?php echo JText::_('COM_SEARCH_SEARCH_ONLY'); ?>
-			</legend>
-			<?php foreach ($this->searchareas['search'] as $val => $txt) : ?>
-				<?php $checked = is_array($this->searchareas['active']) && in_array($val, $this->searchareas['active']) ? 'checked="checked"' : ''; ?>
-				<label for="area-<?php echo $val; ?>" class="checkbox">
-					<input type="checkbox" name="areas[]" value="<?php echo $val; ?>" id="area-<?php echo $val; ?>" <?php echo $checked; ?> />
-					<?php echo JText::_($txt); ?>
-				</label>
-			<?php endforeach; ?>
-		</fieldset>
-	<?php endif; ?>
-	<?php if ($this->total > 0) : ?>
-		<div class="form-limit">
-			<label for="limit">
-				<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>
-			</label>
-			<?php echo $this->pagination->getLimitBox(); ?>
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownSearchareas">
+				<?php foreach ($this->searchareas['search'] as $val => $txt) { ?>
+					<?php $checked = is_array($this->searchareas['active']) && in_array($val, $this->searchareas['active']) ? 'checked="checked"' : ''; ?>
+					<div class="dropdown-item">
+						<input type="checkbox" name="areas[]" value="<?php echo $val; ?>" id="area-<?php echo $val; ?>" <?php echo $checked; ?> />
+						<?php echo JText::_($txt);?>
+					</div>
+				<?php } ?>
+
+			</div>
 		</div>
 	<?php endif; ?>
+
+	<table class="table mt-4 mb-0">
+		<thead>
+			<tr>
+				<th>
+					<?php if (!empty($this->searchword)) { 
+						echo JText::plural('COM_SEARCH_SEARCH_KEYWORD_N_RESULTS', '<span class="badge badge-info">' . $this->total . '</span>');  
+					} ?>
+				</th>
+				<th class="text-right">
+					<?php if ($this->total > 0) { 
+						echo JText::_('JGLOBAL_DISPLAY_NUM');
+						echo $this->pagination->getLimitBox();
+					} ?>
+
+				</th>
+			</tr>
+		</thead>
+	</table>
 </form>

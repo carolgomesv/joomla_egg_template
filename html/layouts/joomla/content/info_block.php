@@ -40,7 +40,7 @@ if (!isset($displayData['astroidArticle'])) {
          <?php echo $this->sublayout('publish_date', $displayData); ?>
       <?php endif; ?>
 
-      <?php $displayData['astroidArticle']->renderReadTime(); ?>
+
 
    <?php endif; ?>
 
