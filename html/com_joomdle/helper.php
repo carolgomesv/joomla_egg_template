@@ -61,7 +61,7 @@ function enrol_btn($curso,$status,$btn_class=''){
     <a class="btn btn-primary btn-lg <?php echo $btn_class;?>" href="<?php echo $url ?>" target="_blank">Acessar</a>
   <?php }
 
-  if ($status=="aberto") {
+  else if ($status=="aberto") {
     // inscrições abertas
     // como bloquear inscrições de outros municípios?
     // bloquear inscrições de quem não finalizou outros cursos?

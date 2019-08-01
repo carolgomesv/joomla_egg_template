@@ -33,8 +33,8 @@ $username = $user->username; ?>
   </div>
 </div>
 
-<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+<script src="http://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+<script src="http://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 <script>
   (function ($) {
 
