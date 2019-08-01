@@ -1,6 +1,7 @@
 <?php 
 
 function course_modal($curso){
+  $user = JFactory::getUser();
   ?>
   <!-- Modal -->
   <div class="modal fade" id="modal_<?php echo $curso['remoteid']?>" tabindex="-1" role="dialog" aria-hidden="true">
