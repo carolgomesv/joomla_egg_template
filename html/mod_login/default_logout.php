@@ -45,7 +45,7 @@ JHtml::_('behavior.keepalive');
 			</div>
 			
 		</div>
-		<a href="/moodle/" class="btn btn-primary btn-sm" target="_blank">Meus Cursos</a>
+		<a href="http://egg.seplag.niteroi.rj.gov.br/moodle/my/" class="btn btn-primary btn-sm" target="_blank">Meus Cursos</a>
 	</div>
 
 	<div class="btn-group d-none d-lg-block" role="group">
