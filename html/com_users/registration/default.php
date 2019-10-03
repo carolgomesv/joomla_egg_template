@@ -35,11 +35,22 @@ JHtml::_('behavior.formvalidator');
 						$required_attr='required="required" aria-required="true"';
 						$required_txt='<span class="star">&nbsp;*</span>';
 					}
+
+					if($urs_field_name=="name"){ 
+						$field['label'] ="Nome Completo";
+					}
+					if($urs_field_name=="username"){ 
+						$field['label'] ="Nome de Usuário - CPF";
+						$field['description'] ="Preenchido automaticamente";
+					}
+
 					?>
 
 					<div class="form-group">
-						<label for="jform_<?php echo $urs_field_name;?>"><?php echo JText::_($field['label']) .$required_txt; ?>
+						<label for="jform_<?php echo $urs_field_name;?>">
+							<?php echo JText::_($field['label']) .$required_txt;?>
 						<?php if (!empty($field['description'])){ ?>
+
 							<spam data-toggle="tooltip" data-placement="right" title="<?php echo JText::_($field['description']); ?>"><small><i class="fas fa-question-circle"></i></small></spam>
 						<?php } ?>
 					</label>
@@ -167,8 +178,13 @@ JHtml::_('behavior.formvalidator');
 		$(document).ready(function() {
 			$('[data-toggle="tooltip"]').tooltip()
 
+			$("#jform_username").prop("readonly",true);
 
 			$('#jform_com_fields_cpf').mask('000.000.000-00', {placeholder: "___.___.___-___"});
+
+			$("#jform_com_fields_cpf").change(function() { 
+				$("#jform_username").val($('#jform_com_fields_cpf').cleanVal());
+            }); 
 
 			var telMaskBehavior = function (val) {
 				return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
