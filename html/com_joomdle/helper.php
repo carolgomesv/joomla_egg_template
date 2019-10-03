@@ -16,6 +16,13 @@ function course_modal($curso){
         <div class="modal-body">
           <?php if ((!$user->guest) && (!$curso['enroled'])){ ?>
             <div class="inscrever-btn mr-3">
+              <script>
+                (function ($) {
+$(document).ready(function(){
+    $(".inscrever-btn input").addClass("btn btn-secondary btn-lg btn-block");
+});
+})(jQuery);
+</script>
               <?php echo JoomdleHelperSystem::actionbutton ( $curso, 'enrol', '', "Confirmar Inscrição") ?>
             </div>
           <?php } ?>
