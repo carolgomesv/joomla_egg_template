@@ -1,7 +1,5 @@
 <?php 
-
 function course_modal($curso){
-  $user = JFactory::getUser();
   ?>
   <!-- Modal -->
   <div class="modal fade" id="modal_<?php echo $curso['remoteid']?>" tabindex="-1" role="dialog" aria-hidden="true">
@@ -16,6 +14,13 @@ function course_modal($curso){
         <div class="modal-body">
           <?php if ((!$user->guest) && (!$curso['enroled'])){ ?>
             <div class="inscrever-btn mr-3">
+              <script>
+                (function ($) {
+$(document).ready(function(){
+    $(".inscrever-btn input").addClass("btn btn-secondary btn-lg btn-block");
+});
+})(jQuery);
+</script>
               <?php echo JoomdleHelperSystem::actionbutton ( $curso, 'enrol', '', "Confirmar Inscrição") ?>
             </div>
           <?php } ?>
@@ -54,6 +59,8 @@ function status($curso){
 function enrol_btn($curso,$status,$btn_class=''){
   $user = JFactory::getUser();
   $url = JUri::base().'moodle/course/view.php?id='.$curso['remoteid'];
+  JLoader::register('FieldsHelper', JPATH_ADMINISTRATOR . '/components/com_fields/helpers/fields.php');
+$customFields = FieldsHelper::getFields('com_users.user', JFactory::getUser(), true);
   course_modal($curso);
   if ((!$user->guest) && ($curso['enroled'])){
     //aluno está inscrito no curso
@@ -63,19 +70,27 @@ function enrol_btn($curso,$status,$btn_class=''){
 
   else if ($status=="aberto") {
     // inscrições abertas
-    // como bloquear inscrições de outros municípios?
-    // bloquear inscrições de quem não finalizou outros cursos?
-    $link_modal="#login-modal";
+    // bloquear inscrições de outros municípios
+    if (strcasecmp($customFields[2]->rawvalue, 'Niterói') == 0 || $user->guest){
+      $link_modal="#login-modal";
 
-    if (!$user->guest){
-      $link_modal= "#modal_".$curso['remoteid'];
-      
-    } ?>
+      if (!$user->guest){
+        $link_modal= "#modal_".$curso['remoteid'];
+        
+      } ?>
 
     <button type="button" class="btn btn-secondary btn-lg <?php echo $btn_class;?>" data-toggle="modal" data-target="<?php echo $link_modal?>">
       Inscrever-se e Acessar
     </button>
-  <?php  }
+  <?php   }
+  // bloqueando quem não é de Niteroi
+  else{ ?>
+    <button type="button" class="btn btn-lg btn-dark <?php echo $btn_class;?>" disabled>Exclusivo para servidores da PMN </button>
+  <?php }
+
+    // bloquear inscrições de quem não finalizou outros cursos?
+    
+  }
   else{
     if ($status=="breve"){
       $texto="Inscrições em breve";

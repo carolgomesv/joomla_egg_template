@@ -16,6 +16,7 @@ $show_buttons = $this->params->get( 'coursecategory_show_buttons' );
 $unicodeslugs = JFactory::getConfig()->get('unicodeslugs');
 
 $user = JFactory::getUser();
+$username = $user->username;
 
 include(dirname(__FILE__)."/../helper.php");
 

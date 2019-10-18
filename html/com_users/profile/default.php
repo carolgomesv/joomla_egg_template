@@ -104,7 +104,7 @@ foreach ($tmp as $customField)
 					<?php if (count($fields)) : ?>
 
 						<?php foreach ($fields as $field) : ?>
-							<?php if (!$field->hidden && $field->type !== 'Spacer') : ?>
+							<?php if (!$field->hidden && $field->type !== 'Spacer' && $field->fieldname !=='actionlogsNotify' && $field->fieldname !=='actionlogsExtensions' ) : ?>
 								<div class="form-group">
 									<label>
 										<?php echo $field->title; ?>

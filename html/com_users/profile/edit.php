@@ -53,6 +53,9 @@ $data = $this->form->getData();
 		<div class="row">
 			
 			<?php foreach ($this->form->getFieldsets() as $group => $fieldset) : ?>
+				<?php if($group !=='core' && $group !=='fields-1'){
+					continue;
+				} ?>
 				<?php $fields = $this->form->getFieldset($group); ?>
 				<?php if (count($fields)) : ?>
 					<div class="col-sm-6">
