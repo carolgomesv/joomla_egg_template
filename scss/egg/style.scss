@@ -1217,3 +1217,21 @@ legend+.control-group {
 		color:#7F8C8D;	
 	}
 }
+
+/**** Status soliciaçãoes ****/
+
+.status-aberto{
+	background:#3c763d;
+}
+.status-planejado{
+	background:#eb661e;
+}
+.status-iniciado{
+	background:#3071a9;
+}
+.status-completo{
+	background:#999999;
+}
+.status-descontinuado{
+	background:#942a25;
+}
