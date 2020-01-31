@@ -71,18 +71,23 @@ function enrol_btn($curso,$status,$btn_class=''){
 	else if ($status=="aberto") {
     // inscrições abertas
     // bloquear inscrições de outros municípios
-		if (/*strcasecmp($customFields[2]->rawvalue, 'Niterói') == 0*/ true || $user->guest){
+		if (strcasecmp($customFields[2]->rawvalue, 'Niterói') == 0 || $user->guest){
 			if ($user->guest){
-				$link_modal="#login-modal";
-			}
-			if (!$user->guest){
-				$link_modal= "#modal_".$curso['remoteid'];
+				?>
+                <a class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#login-modal" >Acesse ou crie sua conta para se inscrever </a>
+              
+				
 
-			} ?>
-
-			<button type="button" class="btn btn-secondary btn-lg <?php echo $btn_class;?>" data-toggle="modal" data-target="<?php echo $link_modal?>">
+			<?php	}
+			if (!$user->guest){	?>
+				<button type="button" class="btn btn-secondary btn-lg <?php echo $btn_class;?>" data-toggle="modal" data-target="#modal_<?php echo $curso['remoteid']?>">
 				Inscrever-se e Acessar
-			</button>
+				</button>
+				
+
+			<?php } ?>
+
+			
 
 		<?php   }
   // bloqueando quem não é de Niteroi

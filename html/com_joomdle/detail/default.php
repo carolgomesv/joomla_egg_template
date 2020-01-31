@@ -51,13 +51,6 @@ if (!array_key_exists ('cost',$course_info))
           </div>
           <div class="mx-3 mb-3">
             <?php
-            if ($user->guest){ ?>
-              <div class="alert alert-light" role="alert">
-                Acesse sua conta ou registre-se para acessar os cursos!!
-                <a class="btn btn-primary" data-toggle="modal" data-target="#login-modal" >Login</a> OU 
-                <a href="<?php echo JRoute::_('index.php?option=com_users&view=registration'); ?>" class="btn btn-info">Registre-se</a>
-              </div>
-            <?php }
             enrol_btn($course_info, status($course_info),'btn-block');   ?>
           </div>
         </div>
