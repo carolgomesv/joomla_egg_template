@@ -18,4 +18,4 @@ $usersConfig = JComponentHelper::getParams('com_users');
 ?>
 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#login-modal" ><i class="fas fa-user-circle"></i> Área do aluno</button> 
 
-<a href="<?php echo JRoute::_('index.php?option=com_users&view=registration'); ?>" class="btn btn-primary"> Registre-se</a>
+<a href="<?php echo JRoute::_('index.php?option=com_users&view=registration'); ?>" class="btn btn-primary"> Criar conta</a>

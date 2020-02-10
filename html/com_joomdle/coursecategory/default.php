@@ -29,9 +29,7 @@ include(dirname(__FILE__)."/../helper.php");
   <?php
   if ($user->guest): ?>
     <div class="alert alert-light" role="alert">
-      Acesse sua conta ou registre-se para acessar os cursos
-      <a class="btn btn-outline-primary" data-toggle="modal" data-target="#login-modal" >Login</a> OU 
-      <a href="<?php echo JRoute::_('index.php?option=com_users&view=registration'); ?>" class="btn btn-outline-info">Registre-se</a>
+       <a class="btn btn-outline-primary" data-toggle="modal" data-target="#login-modal" >Acesse sua conta</a> ou <a href="<?php echo JRoute::_('index.php?option=com_users&view=registration'); ?>" class="btn btn-outline-info">cadastre-se</a> para acessar os cursos
 
     </div>
 
